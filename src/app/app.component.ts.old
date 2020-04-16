@@ -9,45 +9,20 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AppComponent {
   public imagePath;
-  showSpinner=false
   title = 'frontend';
-
+  serverData: JSON;
+  employeeData: JSON;
   url:any
-  is_disabled=true
+  serve=89
   selectedFile: File = null;
   tag_results=null;
-  pbts=[];
-  show=false
-  display_image='some_trinf'
-
-  classes=['atelectasis',
-  'cardiomegaly',
-  'consolidation',
-  'covid-19',
-  'edema',
-  'effusion',
-  'emphysema',
-  'fibrosis',
-  'hernia',
-  'infiltration',
-  'mass',
-  'no_finding',
-  'nodule',
-  'pleural_thickening',
-  'pneumonia',
-  'pneumothorax']
+  caption_results=null;
+  
   constructor(private httpClient: HttpClient) {
     
   }
-  clear(){
-    this.show=false
-    this.is_disabled=false
-  }
   on_file_select(event){
     
-    this.show=false
-    this.pbts=null
-    this.tag_results=null
     this.selectedFile=<File>event.target.files[0]
     console.log(event.target.value)
     console.log(event.target.files[0])
@@ -58,32 +33,30 @@ export class AppComponent {
       reader.onload = e => this.url = reader.result;
 
       reader.readAsDataURL(file);
-      this.is_disabled=false
-      
+      this.upload()
   }
   
 }
  
  
 upload(){
-  this.show=false
-  this.showSpinner=true
   const fd=new FormData()
-  fd.append('file',this.selectedFile,this.selectedFile.name)
+  fd.append('image',this.selectedFile,this.selectedFile.name)
   console.log(fd)
-  this.httpClient.post('https://c407dcc6.ngrok.io/', fd)
-      .subscribe(res => {
+  this.httpClient.post('http://127.0.0.1:8080/get_results', fd)
+      .subscribe(res1 => {
         // res1.tag = 'modified'
-        this.showSpinner=false
-        this.tag_results=res
-        this.display_image=res["gradcam_result"]
-        this.pbts=res['probs']
-        this.show=true
-        console.log(this.display_image)
+        console.log(res1);
+        this.tag_results=res1
         // alert('SUCCESS !!');
       })
 
-   
+      this.httpClient.post('http://127.0.0.1:8081/get_results', fd)
+      .subscribe(res2 => {
+        console.log(res2);
+        this.caption_results=res2
+        // alert('SUCCESS !!');
+      })
 
 }
 

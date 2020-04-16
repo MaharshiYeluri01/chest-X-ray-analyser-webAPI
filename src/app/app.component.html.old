@@ -1,0 +1,78 @@
+<!-- Just an image -->
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="#">
+                <img src="../assets/logo.png" width="200" height="50" alt="">
+
+        </a>
+        <span class="navbar-text">
+                <h5>
+                        AKAIKE TECHNOLOGIES </h5>
+        </span>
+</nav>
+<!-- <br> -->
+<div class="container-fluid">
+        <div class="row">
+                <div class="col-4">
+                        <div style="text-align:center"><br><br>
+                                <h5 class="text-info">
+
+                                        File Upload</h5>
+                                <input type="file" (change)=on_file_select($event)><br><br>
+                                <br>
+                                <h5 class="shadow-lg p-2 mb-2 bg-light rounded " *ngIf="url" class="text-info">Query
+                                        Image</h5>
+                                <img class="rounded border border-info" *ngIf="url" [src]="url" height="300"
+                                        width="300">
+                                <br>
+
+
+                        </div>
+                        <br>
+
+
+                </div>
+                <!-- style="background-image: url(../assets/background2.jpg);" -->
+                <div class="col border" *ngIf="tag_results">
+                        <!-- <p>tag_results</p> -->
+
+                        <br>
+                        <div>
+
+                                <h5 class="shadow-lg p-2 mb-2 bg-light rounded extra_bottom_margin">
+                                        <span style='font-size:25px;'>&#9673;</span>
+                                        Predicted tag</h5>
+                                <h4 class="text-primary"> - {{tag_results.tag}}</h4>
+
+                               
+                                <div *ngIf="caption_results">
+                                        <!-- <p class="extra_margin" ></p> -->
+                                        <h5 class="shadow-lg p-2 mb-2 bg-light rounded extra_bottom_margin">
+                                                <span style='font-size:25px;'>&#9673;</span>
+                                                Predicted captions</h5>
+                                        <ng-container *ngFor="let cap of caption_results.captions; let i = index">
+                                                <h6 class="text-primary"> - {{cap}}</h6>
+                                        </ng-container>
+                                </div>
+                        </div>
+                        <br>
+                        <h5 *ngIf="tag_results" class="shadow-lg p-2 mb-2 bg-light rounded">
+                                <span style='font-size:25px;'>&#9673;</span>
+                                Similar Images</h5>
+                        <div *ngIf="tag_results" class="row">
+                               
+
+                                <ng-container *ngFor="let result of tag_results.result; let i = index">
+                                        <br>
+                                        <div class="col">
+                                                <img class="rounded border border-primary extra_margin" height="220" width="200"
+                                                        [src]="result">
+                                        </div>
+                                        <div *ngIf="(i + 1) % 4 === 0" class="w-50"></div>
+                                </ng-container>
+                        </div>
+
+                </div>
+
+        </div>
+</div>
+<router-outlet></router-outlet>
