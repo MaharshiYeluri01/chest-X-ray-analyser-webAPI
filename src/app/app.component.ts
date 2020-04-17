@@ -11,7 +11,7 @@ export class AppComponent {
   public imagePath;
   showSpinner=false
   title = 'frontend';
-
+  value=''
   url:any
   is_disabled=true
   selectedFile: File = null;
@@ -20,28 +20,28 @@ export class AppComponent {
   show=false
   display_image='some_trinf'
 
-  classes=['atelectasis',
-  'cardiomegaly',
-  'consolidation',
-  'covid-19',
-  'edema',
-  'effusion',
-  'emphysema',
-  'fibrosis',
-  'hernia',
-  'infiltration',
-  'mass',
-  'no_finding',
-  'nodule',
-  'pleural_thickening',
-  'pneumonia',
-  'pneumothorax']
+  classes=['Atelectasis',
+  'Cardiomegaly',
+  'Pulmonary consolidation',
+  'COVID-19',
+  'Edema',
+  'Effusion',
+  'Emphysema',
+  'Fibrosis',
+  'Hernia',
+  'Infiltration',
+  'Mass',
+  'No finding',
+  'Nodule',
+  'Pleural thickening',
+  'Pneumonia',
+  'Pneumothorax']
   constructor(private httpClient: HttpClient) {
     
   }
   clear(){
     this.show=false
-    this.is_disabled=false
+    
   }
   on_file_select(event){
     
@@ -71,7 +71,7 @@ upload(){
   const fd=new FormData()
   fd.append('file',this.selectedFile,this.selectedFile.name)
   console.log(fd)
-  this.httpClient.post('https://c407dcc6.ngrok.io/', fd)
+  this.httpClient.post('http://127.0.0.1:5000/', fd)
       .subscribe(res => {
         // res1.tag = 'modified'
         this.showSpinner=false

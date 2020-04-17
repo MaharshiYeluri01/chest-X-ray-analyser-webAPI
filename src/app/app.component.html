@@ -17,20 +17,38 @@
 <div class="row">
         <div class="col-sm-4">
                 <div style="text-align:center"><br><br>
-                        <h5 class="text-info">
+                        <!-- <h5 class="text-info">
+                        
 
-                                File Upload</h5>
-                        <input type="file" (change)=on_file_select($event) (click)="clear()"><br><br>
+                                File Upload</h5> -->
+                        <!-- <input type="file" accept="image/*" (change)=on_file_select($event) [value]="v" (click)="clear()"><br><br> -->
+                                <div class="row">
+                                        <div class="col-md-2">
+                                               
+                                        </div>
+                                        <div class="col-md-8">
+                                                <div class="input-group mb-1">
+                            
+                                                        <div class="custom-file">
+                                                          <input type="file" class="custom-file-input" id="inputGroupFile01" (change)=on_file_select($event) (click)="clear()"
+                                                          style="width: 20%;">
+                                                          <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                                        </div>
+                                                      </div>
+                                        </div>
+                                </div>
+                       
+
                         <br>
-                        <h5 class="shadow-lg p-2 mb-2 bg-light rounded " *ngIf="url" class="text-info">
-                                Uploaded Image
+                        <h5  *ngIf="url" class="text-info">
+                                Uploaded X-ray
                                 </h5>
                         <img class="rounded border border-info" *ngIf="url" [src]="url" height="300"
                                 width="300">
                         <br>
                         <br>
                       
-                        <button class="btn btn-primary" (click)="upload()" [disabled]='is_disabled'>Upload</button>
+                        <button class="btn btn-info" (click)="upload()" [disabled]='is_disabled'>Generate report</button>
 
                 </div>
         </div>
@@ -43,32 +61,35 @@
         </div>
         
         <div *ngIf='show' class="col-sm-4">
-                <br><br><br><br><br><br><br><h6 class="text-info">Grad cam output</h6>
+                <br><br><br><br><br><h5 class="text-info" >Hotspots</h5>
                 <img [src]="display_image" height="300" width="300">  
                
         </div>
         <div *ngIf='show' class="col-sm-2">
                 <br><br>
-                <h6>Predicted diseases</h6>
+                <h5 class="text-info">Findings</h5>
+                <br>
                 <ng-container *ngFor="let e of pbts.slice(0,8); let i = index">
          
-                        <p  class="text-info">{{classes[i]}}</p>
+                        
                         <div class="progress">
                           
                           <div class="progress-bar bg-danger" role="progressbar" [style.width]="e+'%'"  aria-valuemin="0" aria-valuemax="100">{{e}}%</div><br>
                         </div>
+                        <p  class="text-info">{{classes[i]}}</p>
                       </ng-container>
         </div>
         <div *ngIf='show' class="col-sm-2">
               
-                <br><br><br>
+                <br><br><br><br>
                 <ng-container *ngFor="let e of pbts.slice(8,16); let i = index">
          
-                        <p  class="text-info">{{classes[i+8]}}</p>
+                       
                         <div class="progress">
                           
                           <div class="progress-bar bg-danger" role="progressbar" [style.width]="e+'%'"  aria-valuemin="0" aria-valuemax="100">{{e}}%</div><br>
                         </div>
+                        <p  class="text-info">{{classes[i+8]}}</p>
                       </ng-container>
         </div>
       </div>
