@@ -4,12 +4,14 @@
                 <img src="../assets/logo.png" width="200" height="50" alt="">
 
         </a>
+        <h2 style="font-size:24px"> AI based Rapid CoVid Screening </h2>
         <span class="navbar-text">
                 <h5>
                         AKAIKE TECHNOLOGIES </h5>
         </span>
 </nav>
-<br>
+<marquee behavior="scroll" direction="left" style="color: red;">This is just for a demo purpose, please consult a radiologist to verify the findings......... </marquee>
+
 
 
 
@@ -61,25 +63,25 @@
         </div>
         
         <div *ngIf='show' class="col-sm-4">
-                <br><br><br><br><br><h5 class="text-info" >Hotspots</h5>
+                <br><br><br><br><br><h5 class="text-info" >Hotspots for {{hotspot_class}}</h5>
                 <img [src]="display_image" height="300" width="300">  
                
         </div>
-        <div *ngIf='show' class="col-sm-2">
-                <br><br>
+        <div *ngIf='show' class="col-sm-3">
+                <br>
                 <h5 class="text-info">Findings</h5>
                 <br>
-                <ng-container *ngFor="let e of pbts.slice(0,8); let i = index">
+                <ng-container *ngFor="let e of pbts; let i = index">
          
                         
                         <div class="progress">
                           
                           <div class="progress-bar bg-danger" role="progressbar" [style.width]="e+'%'"  aria-valuemin="0" aria-valuemax="100">{{e}}%</div><br>
                         </div>
-                        <p  class="text-info">{{classes[i]}}</p>
+                        <p  class="text-info" >{{classes[i]}}</p>
                       </ng-container>
         </div>
-        <div *ngIf='show' class="col-sm-2">
+        <!-- <div *ngIf='show' class="col-sm-2">
               
                 <br><br><br><br>
                 <ng-container *ngFor="let e of pbts.slice(8,16); let i = index">
@@ -91,7 +93,7 @@
                         </div>
                         <p  class="text-info">{{classes[i+8]}}</p>
                       </ng-container>
-        </div>
+        </div> -->
       </div>
 
 </div>

@@ -19,23 +19,19 @@ export class AppComponent {
   pbts=[];
   show=false
   display_image='some_trinf'
-
+  hotspot_class:String
   classes=['Atelectasis',
-  'Cardiomegaly',
-  'Pulmonary consolidation',
-  'COVID-19',
-  'Edema',
-  'Effusion',
-  'Emphysema',
-  'Fibrosis',
-  'Hernia',
-  'Infiltration',
-  'Mass',
-  'No finding',
-  'Nodule',
-  'Pleural thickening',
-  'Pneumonia',
-  'Pneumothorax']
+ 'COVID-19',
+ 'Cardiomegaly',
+ 'Consolidation',
+ 'Edema',
+//  'Enlarged Cardiomediastinum',
+ 'Lung Opacity',
+ 'No Finding',
+ 'Pleural Effusion',
+//  'Pneumonia',
+//  'Pneumothorax',
+ 'Support Devices']
   constructor(private httpClient: HttpClient) {
     
   }
@@ -71,7 +67,7 @@ upload(){
   const fd=new FormData()
   fd.append('file',this.selectedFile,this.selectedFile.name)
   console.log(fd)
-  this.httpClient.post('http://127.0.0.1:5000/', fd)
+  this.httpClient.post('http://104.154.60.156:5000/', fd)
       .subscribe(res => {
         // res1.tag = 'modified'
         this.showSpinner=false
@@ -79,7 +75,8 @@ upload(){
         this.display_image=res["gradcam_result"]
         this.pbts=res['probs']
         this.show=true
-        console.log(this.display_image)
+        this.hotspot_class=res['top_class']
+        console.log(res)
         // alert('SUCCESS !!');
       })
 
